@@ -1,0 +1,700 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20/10 - Thanh Xuân 12A2 💗</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #ff8fb8;
+    --dark-pink: #e84f91;
+    --cream: #fff8fb;
+    --purple: #a18cd1;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #7d3658;
+    background: linear-gradient(135deg, #fff0f6, #ffe0ed, #f7e9ff);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+}
+
+#musicBtn {
+    position: fixed;
+    z-index: 20;
+    top: 16px;
+    right: 16px;
+    border-radius: 30px;
+    padding: 11px 17px;
+    background: #fff;
+    color: #d84d89;
+    box-shadow: 0 5px 20px #d84d8930;
+}
+
+.hero {
+    min-height: 92vh;
+    padding: 85px 20px 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.tag {
+    display: inline-block;
+    background: #ffffffb8;
+    padding: 10px 20px;
+    border-radius: 30px;
+    letter-spacing: 2px;
+    font-size: 13px;
+    color: #d84d89;
+    margin-bottom: 22px;
+}
+
+h1 {
+    font-size: clamp(38px, 8vw, 78px);
+    line-height: 1.15;
+    color: #e34d91;
+    text-shadow: 0 5px 20px #ff9cc650;
+}
+
+.subtitle {
+    margin-top: 18px;
+    font-size: clamp(16px, 3vw, 21px);
+    line-height: 1.8;
+    max-width: 650px;
+}
+
+.countdown {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 28px 0;
+}
+
+.time-box {
+    width: 83px;
+    padding: 14px 5px;
+    border-radius: 18px;
+    background: #ffffffb8;
+    box-shadow: 0 5px 20px #dd7da522;
+}
+
+.time-box strong {
+    display: block;
+    font-size: 27px;
+    color: #df4d90;
+}
+
+.time-box span {
+    font-size: 12px;
+}
+
+.primary-btn {
+    color: white;
+    padding: 15px 27px;
+    border-radius: 35px;
+    background: linear-gradient(135deg, #ff82ae, #d75ba6);
+    box-shadow: 0 8px 25px #df5b953f;
+    transition: transform .25s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+.hint {
+    font-size: 13px;
+    margin-top: 13px;
+    opacity: .8;
+}
+
+/* PHONG BÌ */
+.envelope-area {
+    padding: 35px 20px 70px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: clamp(27px, 5vw, 42px);
+    color: #dc4d8d;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.section-desc {
+    text-align: center;
+    line-height: 1.8;
+    margin: 0 auto 30px;
+    max-width: 650px;
+}
+
+.envelope {
+    width: min(320px, 85vw);
+    height: 205px;
+    margin: 55px auto 20px;
+    position: relative;
+    cursor: pointer;
+    perspective: 900px;
+}
+
+.envelope-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    background: #ffb8d2;
+    box-shadow: 0 12px 35px #d84d8930;
+}
+
+.envelope-front {
+    position: absolute;
+    inset: 0;
+    background: #ff9fc3;
+    clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+    border-radius: 8px;
+    z-index: 3;
+}
+
+.envelope-flap {
+    position: absolute;
+    inset: 0;
+    background: #ffcee0;
+    clip-path: polygon(0 0, 100% 0, 50% 62%);
+    transform-origin: top;
+    transition: transform .7s;
+    z-index: 4;
+}
+
+.heart-seal {
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    z-index: 5;
+    transition: opacity .3s;
+}
+
+.letter {
+    position: absolute;
+    left: 5%;
+    width: 90%;
+    height: 175px;
+    top: 12px;
+    overflow: hidden;
+    padding: 17px;
+    background: #fffdfd;
+    border-radius: 8px;
+    line-height: 1.6;
+    font-size: 14px;
+    transition: transform .8s, height .8s;
+    z-index: 2;
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope.open .heart-seal {
+    opacity: 0;
+}
+
+.envelope.open .letter {
+    transform: translateY(-115px);
+    height: 270px;
+    overflow: auto;
+    z-index: 6;
+    box-shadow: 0 5px 25px #c45a8520;
+}
+
+.envelope.open {
+    margin-bottom: 120px;
+}
+
+.letter h3 {
+    color: #df4d90;
+    margin-bottom: 10px;
+}
+
+.letter p {
+    margin-bottom: 10px;
+}
+
+/* ALBUM */
+.album {
+    padding: 65px 20px;
+    background: #ffffff55;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    max-width: 1000px;
+    margin: 35px auto 0;
+}
+
+.photo-card {
+    background: white;
+    padding: 10px 10px 18px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px #d35e941c;
+    transform: rotate(-1deg);
+    transition: transform .3s;
+}
+
+.photo-card:nth-child(even) {
+    transform: rotate(1.5deg);
+}
+
+.photo-card:hover {
+    transform: translateY(-7px) rotate(0);
+}
+
+.photo-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #ffe1ed;
+}
+
+.photo-card p {
+    text-align: center;
+    margin-top: 13px;
+    font-size: 14px;
+}
+
+/* LỜI CHÚC */
+.wishes {
+    padding: 70px 20px;
+}
+
+.wish-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+    max-width: 1000px;
+    margin: 35px auto;
+}
+
+.wish-card {
+    background: #ffffffb8;
+    border: 1px solid #ffffff;
+    padding: 25px 20px;
+    border-radius: 22px;
+    text-align: center;
+    box-shadow: 0 8px 25px #d35e9412;
+}
+
+.wish-card .emoji {
+    font-size: 32px;
+}
+
+.wish-card h3 {
+    color: #dc4d8d;
+    margin: 12px 0;
+}
+
+.wish-card p {
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+.closing {
+    padding: 60px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #ffcee0, #f3dfff);
+}
+
+.closing h2 {
+    color: #d84d89;
+    font-size: clamp(28px, 5vw, 43px);
+    margin-bottom: 15px;
+}
+
+.closing p {
+    line-height: 1.9;
+}
+
+footer {
+    padding: 22px;
+    text-align: center;
+    font-size: 13px;
+    background: #fff7fb;
+}
+
+/* HIỆU ỨNG TRÁI TIM */
+.floating-heart {
+    position: fixed;
+    bottom: -35px;
+    pointer-events: none;
+    z-index: 10;
+    animation: floatUp linear forwards;
+    opacity: .8;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    15% { opacity: .8; }
+    100% {
+        transform: translateY(-110vh) rotate(35deg);
+        opacity: 0;
+    }
+}
+
+.sparkle {
+    position: absolute;
+    color: #e77ca7;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: .25; transform: scale(.8); }
+    to { opacity: 1; transform: scale(1.2); }
+}
+
+@media (max-width: 650px) {
+    .photo-grid, .wish-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero {
+        min-height: 90vh;
+    }
+}
+
+@media (max-width: 400px) {
+    .photo-grid, .wish-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<button id="musicBtn" onclick="toggleMusic()">
+    🎵 Bật nhạc
+</button>
+
+<audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<section class="hero">
+    <span class="sparkle" style="top:15%;left:12%;font-size:25px">✦</span>
+    <span class="sparkle" style="top:25%;right:12%;font-size:32px">✧</span>
+    <span class="sparkle" style="bottom:20%;left:18%;font-size:20px">✦</span>
+
+    <div class="tag">🌷 VIETNAMESE WOMEN'S DAY 🌷</div>
+
+    <h1>Happy 20/10</h1>
+    <h1 style="font-size:clamp(33px,7vw,65px)">
+        12A2 thân yêu 💗
+    </h1>
+
+    <p class="subtitle">
+        Gửi đến những bông hoa xinh đẹp của lớp 12A2!<br>
+        Chúc các bạn luôn rạng rỡ, hạnh phúc và tự tin
+        viết nên những năm tháng thanh xuân tuyệt vời nhất.
+    </p>
+
+    <div class="countdown" aria-label="Đếm ngược đến ngày 20 tháng 10">
+        <div class="time-box">
+            <strong id="days">00</strong>
+            <span>Ngày</span>
+        </div>
+        <div class="time-box">
+            <strong id="hours">00</strong>
+            <span>Giờ</span>
+        </div>
+        <div class="time-box">
+            <strong id="minutes">00</strong>
+            <span>Phút</span>
+        </div>
+        <div class="time-box">
+            <strong id="seconds">00</strong>
+            <span>Giây</span>
+        </div>
+    </div>
+
+    <button class="primary-btn" onclick="openLetter()">
+        💌 Mở cánh cửa yêu thương
+    </button>
+
+    <p class="hint">Một món quà nhỏ dành riêng cho những cô gái 12A2 ✨</p>
+</section>
+
+<section class="envelope-area" id="letterSection">
+    <h2 class="section-title">💌 Lá thư gửi những nàng thơ</h2>
+    <p class="section-desc">
+        Có một lời chúc đang chờ được mở ra.
+        Hãy chạm vào phong bì để khám phá nhé!
+    </p>
+
+    <div class="envelope" id="envelope" onclick="openLetter()">
+        <div class="envelope-back"></div>
+
+        <div class="letter">
+            <h3>Gửi những cô gái 12A2 💗</h3>
+            <p>
+                Nhân ngày 20/10, chúc tất cả các bạn nữ của lớp
+                chúng ta luôn xinh đẹp, vui vẻ và tràn đầy năng lượng!
+            </p>
+            <p>
+                Mong rằng mỗi ngày đến trường đều là một ngày vui,
+                mỗi bài kiểm tra đều thật suôn sẻ và mỗi ước mơ
+                đều dần trở thành hiện thực.
+            </p>
+            <p>
+                Cảm ơn các bạn đã làm cho thanh xuân 12A2 trở nên
+                nhiều màu sắc hơn. Chúc các bạn luôn được yêu thương,
+                trân trọng và tỏa sáng theo cách riêng của mình.
+            </p>
+            <p><strong>Happy Vietnamese Women's Day! 🌷</strong></p>
+            <p style="text-align:right">Thân gửi: Tập thể 12A2 💕</p>
+        </div>
+
+        <div class="envelope-flap"></div>
+        <div class="heart-seal">💗</div>
+        <div class="envelope-front"></div>
+    </div>
+
+    <p class="hint">Chạm vào phong bì để mở hoặc đóng thư</p>
+</section>
+
+<section class="album">
+    <h2 class="section-title">📸 Thanh xuân chúng mình</h2>
+    <p class="section-desc">
+        Những khoảnh khắc nhỏ, những nụ cười xinh
+        và cả một bầu trời kỷ niệm của 12A2.
+    </p>
+
+    <div class="photo-grid">
+        <div class="photo-card">
+            <img src="anh1.jpg" alt="Kỷ niệm lớp 12A2"
+                 onerror="this.style.display='none'">
+            <p>🌸 Những ngày bên nhau</p>
+        </div>
+        <div class="photo-card">
+            <img src="anh2.jpg" alt="Khoảnh khắc vui vẻ"
+                 onerror="this.style.display='none'">
+            <p>💗 Nụ cười rạng rỡ</p>
+        </div>
+        <div class="photo-card">
+            <img src="anh3.jpg" alt="Bạn bè 12A2"
+                 onerror="this.style.display='none'">
+            <p>✨ Thanh xuân tươi đẹp</p>
+        </div>
+        <div class="photo-card">
+            <img src="anh4.jpg" alt="Ảnh tập thể"
+                 onerror="this.style.display='none'">
+            <p>🫶 Một tập thể tuyệt vời</p>
+        </div>
+        <div class="photo-card">
+            <img src="anh5.jpg" alt="Kỷ niệm đáng nhớ"
+                 onerror="this.style.display='none'">
+            <p>🌷 Lưu giữ yêu thương</p>
+        </div>
+        <div class="photo-card">
+            <img src="anh6.jpg" alt="Thanh xuân 12A2"
+                 onerror="this.style.display='none'">
+            <p>💕 Mãi là kỷ niệm</p>
+        </div>
+    </div>
+</section>
+
+<section class="wishes">
+    <h2 class="section-title">🌷 Những lời chúc xinh xắn</h2>
+    <p class="section-desc">
+        Mỗi cô gái là một bông hoa, mang một vẻ đẹp riêng.
+    </p>
+
+    <div class="wish-grid">
+        <div class="wish-card">
+            <div class="emoji">🌹</div>
+            <h3>Luôn xinh đẹp</h3>
+            <p>
+                Chúc bạn luôn tự tin, rạng rỡ,
+                yêu bản thân và tỏa sáng theo cách riêng.
+            </p>
+        </div>
+
+        <div class="wish-card">
+            <div class="emoji">🍀</div>
+            <h3>Luôn may mắn</h3>
+            <p>
+                Chúc mọi điều tốt lành sẽ đến,
+                học tập thuận lợi và đạt được mục tiêu.
+            </p>
+        </div>
+
+        <div class="wish-card">
+            <div class="emoji">🎓</div>
+            <h3>Học tốt mỗi ngày</h3>
+            <p>
+                Chúc 12A2 vượt qua kỳ thi thật tốt,
+                vững bước trên hành trình tương lai.
+            </p>
+        </div>
+
+        <div class="wish-card">
+            <div class="emoji">💖</div>
+            <h3>Luôn hạnh phúc</h3>
+            <p>
+                Mong bạn luôn được yêu thương,
+                có thật nhiều tiếng cười và niềm vui.
+            </p>
+        </div>
+
+        <div class="wish-card">
+            <div class="emoji">🦋</div>
+            <h3>Ước mơ bay xa</h3>
+            <p>
+                Chúc bạn đủ dũng cảm theo đuổi ước mơ
+                và trở thành phiên bản tuyệt vời nhất.
+            </p>
+        </div>
+
+        <div class="wish-card">
+            <div class="emoji">🌈</div>
+            <h3>Thanh xuân rực rỡ</h3>
+            <p>
+                Chúc những năm tháng lớp 12 luôn ngập tràn
+                kỷ niệm đẹp và tình bạn chân thành.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="closing">
+    <h2>Happy Women's Day! 💐</h2>
+    <p>
+        Chúc mừng ngày 20/10 đến tất cả những cô gái tuyệt vời của 12A2.<br>
+        Hãy luôn mỉm cười, luôn yêu đời và nhớ rằng các bạn thật đặc biệt!<br>
+        <strong>12A2 — Một thời thanh xuân, một đời kỷ niệm. 💗</strong>
+    </p>
+</section>
+
+<footer>
+    Made with 💗 for the girls of class 12A2 · 20/10
+</footer>
+
+<script>
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+const envelope = document.getElementById("envelope");
+
+let isPlaying = false;
+
+async function toggleMusic() {
+    if (isPlaying) {
+        music.pause();
+        isPlaying = false;
+        musicBtn.textContent = "🎵 Bật nhạc";
+        return;
+    }
+
+    try {
+        await music.play();
+        isPlaying = true;
+        musicBtn.textContent = "🔊 Tắt nhạc";
+    } catch (error) {
+        musicBtn.textContent = "⚠️ Kiểm tra music.mp3";
+        console.log("Không thể phát nhạc:", error);
+    }
+}
+
+function openLetter() {
+    envelope.classList.toggle("open");
+
+    // Nhấn mở thiệp cũng thử bắt đầu phát nhạc.
+    if (!isPlaying) {
+        toggleMusic();
+    }
+
+    if (envelope.classList.contains("open")) {
+        setTimeout(() => {
+            document.getElementById("letterSection")
+                .scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 150);
+    }
+}
+
+// Đếm ngược đến ngày 20/10 gần nhất trong tương lai.
+function updateCountdown() {
+    const now = new Date();
+    let year = now.getFullYear();
+
+    let target = new Date(year, 9, 20, 0, 0, 0);
+
+    if (now >= target) {
+        target = new Date(year + 1, 9, 20, 0, 0, 0);
+    }
+
+    const diff = Math.max(0, target.getTime() - now.getTime());
+
+    document.getElementById("days").textContent =
+        String(Math.floor(diff / 86400000)).padStart(2, "0");
+
+    document.getElementById("hours").textContent =
+        String(Math.floor(diff / 3600000) % 24).padStart(2, "0");
+
+    document.getElementById("minutes").textContent =
+        String(Math.floor(diff / 60000) % 60).padStart(2, "0");
+
+    document.getElementById("seconds").textContent =
+        String(Math.floor(diff / 1000) % 60).padStart(2, "0");
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Tạo trái tim bay ngẫu nhiên.
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "floating-heart";
+
+    const symbols = ["💗", "💕", "💖", "🌸", "✨", "💓"];
+    heart.textContent = symbols[
+        Math.floor(Math.random() * symbols.length)
+    ];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (14 + Math.random() * 18) + "px";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 10500);
+}
+
+setInterval(createHeart, 650);
+</script>
+
+</body>
+</html>
