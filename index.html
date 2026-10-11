@@ -127,7 +127,7 @@ h1 {
     opacity: .8;
 }
 
-/* PHONG BÌ */
+/* PHONG BI */
 .envelope-area {
     padding: 35px 20px 70px;
     text-align: center;
@@ -285,7 +285,53 @@ h1 {
     font-size: 14px;
 }
 
-/* LỜI CHÚC */
+/* VIDEO THANH XUAN 12A2 - MOI */
+.video-section {
+    padding: 65px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #fff0f6, #f7e9ff);
+}
+
+.video-desc {
+    max-width: 650px;
+    margin: 0 auto 28px;
+    line-height: 1.8;
+}
+
+.video-card {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 12px;
+    background: #ffffffd9;
+    border: 1px solid white;
+    border-radius: 24px;
+    box-shadow: 0 12px 35px #d84d8925;
+}
+
+.video-card video {
+    display: block;
+    width: 100%;
+    max-height: 70vh;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background: #2b1724;
+    border-radius: 16px;
+}
+
+.video-caption {
+    margin-top: 18px;
+    color: #d84d89;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.video-note {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #9b6680;
+}
+
+/* LOI CHUC */
 .wishes {
     padding: 70px 20px;
 }
@@ -344,7 +390,7 @@ footer {
     background: #fff7fb;
 }
 
-/* HIỆU ỨNG TRÁI TIM */
+/* TRAI TIM BAY */
 .floating-heart {
     position: fixed;
     bottom: -35px;
@@ -528,6 +574,43 @@ footer {
     </div>
 </section>
 
+<!-- VIDEO MOI DA DUOC GHÉP SAN -->
+<section class="video-section" id="videoKyNiem">
+    <h2 class="section-title">🎬 Thước phim thanh xuân</h2>
+
+    <p class="video-desc">
+        Những khoảnh khắc đáng nhớ, những nụ cười
+        và kỷ niệm đẹp của tập thể 12A2. 💗
+    </p>
+
+    <div class="video-card">
+        <video
+            id="classVideo"
+            autoplay
+            muted
+            loop
+            playsinline
+            controls
+            preload="metadata"
+            poster="anh1.jpg"
+        >
+            <source
+                src="https://www.image2url.com/r2/default/videos/1791729022591-e22a44e9-c263-4054-b235-41eed71b116f.mp4"
+                type="video/mp4"
+            >
+            Trình duyệt của bạn không hỗ trợ video HTML5.
+        </video>
+
+        <p class="video-caption">
+            🌷 12A2 — Một thời thanh xuân, một đời kỷ niệm 🌷
+        </p>
+
+        <p class="video-note" id="videoStatus" aria-live="polite">
+            Đang chuẩn bị phát video...
+        </p>
+    </div>
+</section>
+
 <section class="wishes">
     <h2 class="section-title">🌷 Những lời chúc xinh xắn</h2>
     <p class="section-desc">
@@ -632,7 +715,6 @@ async function toggleMusic() {
 function openLetter() {
     envelope.classList.toggle("open");
 
-    // Nhấn mở thiệp cũng thử bắt đầu phát nhạc.
     if (!isPlaying) {
         toggleMusic();
     }
@@ -640,16 +722,40 @@ function openLetter() {
     if (envelope.classList.contains("open")) {
         setTimeout(() => {
             document.getElementById("letterSection")
-                .scrollIntoView({ behavior: "smooth", block: "center" });
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
         }, 150);
     }
 }
 
-// Đếm ngược đến ngày 20/10 gần nhất trong tương lai.
+// VIDEO: TU DONG PHAT KHI MO TRANG
+const classVideo = document.getElementById("classVideo");
+const videoStatus = document.getElementById("videoStatus");
+
+classVideo.addEventListener("playing", () => {
+    videoStatus.textContent = "💗 Video kỷ niệm đang phát!";
+});
+
+classVideo.addEventListener("waiting", () => {
+    videoStatus.textContent = "Đang tải video...";
+});
+
+classVideo.addEventListener("error", () => {
+    videoStatus.textContent =
+        "Không tải được video. Hãy kiểm tra đường dẫn video.";
+});
+
+classVideo.play().catch(() => {
+    videoStatus.textContent =
+        "Nếu video chưa tự phát, hãy nhấn nút Play.";
+});
+
+// DEM NGUOC DEN NGAY 20/10
 function updateCountdown() {
     const now = new Date();
     let year = now.getFullYear();
-
     let target = new Date(year, 9, 20, 0, 0, 0);
 
     if (now >= target) {
@@ -674,7 +780,7 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// Tạo trái tim bay ngẫu nhiên.
+// TRAI TIM BAY
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "floating-heart";
