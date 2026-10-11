@@ -239,7 +239,7 @@ h1 {
     margin-bottom: 10px;
 }
 
-/* ALBUM */
+/* ALBUM ẢNH */
 .album {
     padding: 65px 20px;
     background: #ffffff55;
@@ -277,6 +277,7 @@ h1 {
     object-fit: cover;
     border-radius: 12px;
     background: #ffe1ed;
+    cursor: zoom-in;
 }
 
 .photo-card p {
@@ -285,7 +286,7 @@ h1 {
     font-size: 14px;
 }
 
-/* VIDEO THANH XUAN 12A2 - MOI */
+/* VIDEO KỶ NIỆM */
 .video-section {
     padding: 65px 20px;
     text-align: center;
@@ -331,7 +332,7 @@ h1 {
     color: #9b6680;
 }
 
-/* LOI CHUC */
+/* LỜI CHÚC */
 .wishes {
     padding: 70px 20px;
 }
@@ -390,7 +391,7 @@ footer {
     background: #fff7fb;
 }
 
-/* TRAI TIM BAY */
+/* TRÁI TIM BAY */
 .floating-heart {
     position: fixed;
     bottom: -35px;
@@ -405,7 +406,9 @@ footer {
         transform: translateY(0) rotate(0deg);
         opacity: 0;
     }
-    15% { opacity: .8; }
+    15% {
+        opacity: .8;
+    }
     100% {
         transform: translateY(-110vh) rotate(35deg);
         opacity: 0;
@@ -419,12 +422,85 @@ footer {
 }
 
 @keyframes twinkle {
-    from { opacity: .25; transform: scale(.8); }
-    to { opacity: 1; transform: scale(1.2); }
+    from {
+        opacity: .25;
+        transform: scale(.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* =====================================
+   HIỆU ỨNG NHẤN ẢNH ĐỂ PHÓNG TO
+===================================== */
+#imageModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(35, 12, 27, .92);
+    justify-content: center;
+    align-items: center;
+    padding: 60px 15px;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+#imageModal.show {
+    opacity: 1;
+}
+
+#zoomedImage {
+    display: block;
+    max-width: 95%;
+    max-height: 82vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 14px;
+    box-shadow: 0 0 35px #ff8fb855;
+    transform: scale(.75);
+    transition: transform .3s ease;
+    cursor: zoom-out;
+}
+
+#imageModal.show #zoomedImage {
+    transform: scale(1);
+}
+
+#closeImage {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    color: white;
+    background: #ffffff25;
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+#closeImage:hover {
+    background: #e84f91;
+}
+
+#imageCaption {
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    color: white;
+    text-align: center;
+    font-size: 14px;
 }
 
 @media (max-width: 650px) {
-    .photo-grid, .wish-grid {
+    .photo-grid,
+    .wish-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -434,8 +510,28 @@ footer {
 }
 
 @media (max-width: 400px) {
-    .photo-grid, .wish-grid {
+    .photo-grid,
+    .wish-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    #zoomedImage {
+        max-width: 100%;
+        max-height: 76vh;
+    }
+
+    #closeImage {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #imageModal,
+    #zoomedImage {
+        transition: none;
     }
 }
 </style>
@@ -443,9 +539,7 @@ footer {
 
 <body>
 
-<button id="musicBtn" onclick="toggleMusic()">
-    🎵 Bật nhạc
-</button>
+<button id="musicBtn" onclick="toggleMusic()">🎵 Bật nhạc</button>
 
 <audio id="bgMusic" loop preload="auto">
     <source src="music.mp3" type="audio/mpeg">
@@ -492,11 +586,14 @@ footer {
         💌 Mở cánh cửa yêu thương
     </button>
 
-    <p class="hint">Một món quà nhỏ dành riêng cho những cô gái 12A2 ✨</p>
+    <p class="hint">
+        Một món quà nhỏ dành riêng cho những cô gái 12A2 ✨
+    </p>
 </section>
 
 <section class="envelope-area" id="letterSection">
     <h2 class="section-title">💌 Lá thư gửi những nàng thơ</h2>
+
     <p class="section-desc">
         Có một lời chúc đang chờ được mở ra.
         Hãy chạm vào phong bì để khám phá nhé!
@@ -507,22 +604,29 @@ footer {
 
         <div class="letter">
             <h3>Gửi những cô gái 12A2 💗</h3>
+
             <p>
                 Nhân ngày 20/10, chúc tất cả các bạn nữ của lớp
                 chúng ta luôn xinh đẹp, vui vẻ và tràn đầy năng lượng!
             </p>
+
             <p>
                 Mong rằng mỗi ngày đến trường đều là một ngày vui,
                 mỗi bài kiểm tra đều thật suôn sẻ và mỗi ước mơ
                 đều dần trở thành hiện thực.
             </p>
+
             <p>
                 Cảm ơn các bạn đã làm cho thanh xuân 12A2 trở nên
                 nhiều màu sắc hơn. Chúc các bạn luôn được yêu thương,
                 trân trọng và tỏa sáng theo cách riêng của mình.
             </p>
+
             <p><strong>Happy Vietnamese Women's Day! 🌷</strong></p>
-            <p style="text-align:right">Thân gửi: Tập thể 12A2 💕</p>
+
+            <p style="text-align:right">
+                Thân gửi: Các thiên thần của 12A2 💕
+            </p>
         </div>
 
         <div class="envelope-flap"></div>
@@ -535,6 +639,7 @@ footer {
 
 <section class="album">
     <h2 class="section-title">📸 Thanh xuân chúng mình</h2>
+
     <p class="section-desc">
         Những khoảnh khắc nhỏ, những nụ cười xinh
         và cả một bầu trời kỷ niệm của 12A2.
@@ -546,35 +651,57 @@ footer {
                  onerror="this.style.display='none'">
             <p>🌸 Những ngày bên nhau</p>
         </div>
+
         <div class="photo-card">
             <img src="anh2.jpg" alt="Khoảnh khắc vui vẻ"
                  onerror="this.style.display='none'">
             <p>💗 Nụ cười rạng rỡ</p>
         </div>
+
         <div class="photo-card">
             <img src="anh3.jpg" alt="Bạn bè 12A2"
                  onerror="this.style.display='none'">
             <p>✨ Thanh xuân tươi đẹp</p>
         </div>
+
         <div class="photo-card">
             <img src="anh4.jpg" alt="Ảnh tập thể"
                  onerror="this.style.display='none'">
             <p>🫶 Một tập thể tuyệt vời</p>
         </div>
+
         <div class="photo-card">
             <img src="anh5.jpg" alt="Kỷ niệm đáng nhớ"
                  onerror="this.style.display='none'">
             <p>🌷 Lưu giữ yêu thương</p>
         </div>
+
         <div class="photo-card">
             <img src="anh6.jpg" alt="Thanh xuân 12A2"
                  onerror="this.style.display='none'">
             <p>💕 Mãi là kỷ niệm</p>
         </div>
+
+        <div class="photo-card">
+            <img src="anh7.jpg" alt="Thanh xuân 12A2"
+                 onerror="this.style.display='none'">
+            <p>🥶 BÁ KHÍ</p>
+        </div>
+
+        <div class="photo-card">
+            <img src="anh8.jpg" alt="Thanh xuân 12A2"
+                 onerror="this.style.display='none'">
+            <p>💕 a2</p>
+        </div>
+
+        <div class="photo-card">
+            <img src="anh9.jpg" alt="Thanh xuân 12A2"
+                 onerror="this.style.display='none'">
+            <p>💕 a2</p>
+        </div>
     </div>
 </section>
 
-<!-- VIDEO MOI DA DUOC GHÉP SAN -->
 <section class="video-section" id="videoKyNiem">
     <h2 class="section-title">🎬 Thước phim thanh xuân</h2>
 
@@ -613,6 +740,7 @@ footer {
 
 <section class="wishes">
     <h2 class="section-title">🌷 Những lời chúc xinh xắn</h2>
+
     <p class="section-desc">
         Mỗi cô gái là một bông hoa, mang một vẻ đẹp riêng.
     </p>
@@ -676,6 +804,7 @@ footer {
 
 <section class="closing">
     <h2>Happy Women's Day! 💐</h2>
+
     <p>
         Chúc mừng ngày 20/10 đến tất cả những cô gái tuyệt vời của 12A2.<br>
         Hãy luôn mỉm cười, luôn yêu đời và nhớ rằng các bạn thật đặc biệt!<br>
@@ -687,7 +816,33 @@ footer {
     Made with 💗 for the girls of class 12A2 · 20/10
 </footer>
 
+<!-- KHUNG ẢNH PHÓNG TO -->
+<div
+    id="imageModal"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Xem ảnh phóng to"
+    onclick="closeImageModal()"
+>
+    <button
+        id="closeImage"
+        type="button"
+        aria-label="Đóng ảnh"
+        onclick="event.stopPropagation(); closeImageModal();"
+    >&times;</button>
+
+    <img
+        id="zoomedImage"
+        src=""
+        alt="Ảnh phóng to"
+        onclick="event.stopPropagation()"
+    >
+
+    <p id="imageCaption"></p>
+</div>
+
 <script>
+/* NHẠC NỀN */
 const music = document.getElementById("bgMusic");
 const musicBtn = document.getElementById("musicBtn");
 const envelope = document.getElementById("envelope");
@@ -712,6 +867,17 @@ async function toggleMusic() {
     }
 }
 
+music.addEventListener("pause", () => {
+    isPlaying = false;
+    musicBtn.textContent = "🎵 Bật nhạc";
+});
+
+music.addEventListener("play", () => {
+    isPlaying = true;
+    musicBtn.textContent = "🔊 Tắt nhạc";
+});
+
+/* PHONG BÌ THƯ */
 function openLetter() {
     envelope.classList.toggle("open");
 
@@ -730,7 +896,7 @@ function openLetter() {
     }
 }
 
-// VIDEO: TU DONG PHAT KHI MO TRANG
+/* VIDEO KỶ NIỆM */
 const classVideo = document.getElementById("classVideo");
 const videoStatus = document.getElementById("videoStatus");
 
@@ -752,10 +918,11 @@ classVideo.play().catch(() => {
         "Nếu video chưa tự phát, hãy nhấn nút Play.";
 });
 
-// DEM NGUOC DEN NGAY 20/10
+/* ĐẾM NGƯỢC ĐẾN NGÀY 20/10 */
 function updateCountdown() {
     const now = new Date();
     let year = now.getFullYear();
+
     let target = new Date(year, 9, 20, 0, 0, 0);
 
     if (now >= target) {
@@ -780,12 +947,13 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// TRAI TIM BAY
+/* TRÁI TIM BAY */
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "floating-heart";
 
     const symbols = ["💗", "💕", "💖", "🌸", "✨", "💓"];
+
     heart.textContent = symbols[
         Math.floor(Math.random() * symbols.length)
     ];
@@ -800,6 +968,92 @@ function createHeart() {
 }
 
 setInterval(createHeart, 650);
+
+/* =====================================
+   PHÓNG TO ẢNH ALBUM
+===================================== */
+const imageModal = document.getElementById("imageModal");
+const zoomedImage = document.getElementById("zoomedImage");
+const imageCaption = document.getElementById("imageCaption");
+const closeImageButton = document.getElementById("closeImage");
+
+let previousFocusedElement = null;
+let closeTimer = null;
+
+function openImageModal(img) {
+    if (!img || !img.src || !img.complete || img.naturalWidth === 0) {
+        return;
+    }
+
+    if (closeTimer) {
+        clearTimeout(closeTimer);
+        closeTimer = null;
+    }
+
+    previousFocusedElement = document.activeElement;
+
+    zoomedImage.src = img.src;
+    zoomedImage.alt = img.alt || "Ảnh kỷ niệm 12A2";
+
+    const card = img.closest(".photo-card");
+    const caption = card ? card.querySelector("p") : null;
+
+    imageCaption.textContent = caption
+        ? caption.textContent
+        : (img.alt || "");
+
+    imageModal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    requestAnimationFrame(() => {
+        imageModal.classList.add("show");
+    });
+
+    closeImageButton.focus();
+}
+
+function closeImageModal() {
+    if (imageModal.style.display === "none") {
+        return;
+    }
+
+    imageModal.classList.remove("show");
+    document.body.style.overflow = "";
+
+    if (closeTimer) {
+        clearTimeout(closeTimer);
+    }
+
+    closeTimer = setTimeout(() => {
+        imageModal.style.display = "none";
+        zoomedImage.src = "";
+        closeTimer = null;
+    }, 300);
+
+    if (
+        previousFocusedElement &&
+        typeof previousFocusedElement.focus === "function"
+    ) {
+        previousFocusedElement.focus();
+    }
+}
+
+/* Gắn sự kiện cho 9 ảnh trong album */
+document.querySelectorAll(".photo-card img").forEach(img => {
+    img.addEventListener("click", () => {
+        openImageModal(img);
+    });
+});
+
+/* Nhấn ESC để đóng ảnh */
+document.addEventListener("keydown", event => {
+    if (
+        event.key === "Escape" &&
+        imageModal.style.display === "flex"
+    ) {
+        closeImageModal();
+    }
+});
 </script>
 
 </body>
