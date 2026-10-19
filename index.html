@@ -534,6 +534,32 @@ footer {
         transition: none;
     }
 }
+    
+.album-btn {
+    margin-top: 18px;
+    background: linear-gradient(135deg, #ff9fc3, #c084fc);
+    animation: albumPulse 2s infinite;
+}
+
+.album-btn:hover {
+    box-shadow: 0 8px 28px #e84f9160;
+}
+
+@keyframes albumPulse {
+    0%, 100% {
+        box-shadow: 0 8px 25px #df5b953f;
+    }
+    50% {
+        box-shadow: 0 8px 30px #e84f9160;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .album-btn {
+        animation: none;
+    }
+}
+
 </style>
 </head>
 
@@ -1075,6 +1101,18 @@ document.addEventListener("keydown", event => {
         closeImageModal();
     }
 });
+    
+function goToAlbum() {
+    const album = document.querySelector(".album");
+
+    if (album) {
+        album.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+}
+
 </script>
 
 </body>
